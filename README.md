@@ -14,6 +14,7 @@ and recording. The plugin does not embed a browser or launch the official client
 The compatibility baseline is OpenNOW commit
 `683eaa0ecfb60738388def065944c7284154be5c`. Live authentication and playback require
 an authorized Boosteroid account and are separate from offline protocol tests.
+See [compatibility](docs/compatibility.md) for the protocol and player boundaries.
 
 Protocol research references:
 
