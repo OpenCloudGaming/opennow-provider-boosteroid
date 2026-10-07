@@ -1,0 +1,11 @@
+This native protocol implementation was informed by OpenStroid source at
+c27c4f54974bf2d0a58c625c3f219dcb05bd0fd2, licensed under Apache-2.0.
+https://github.com/OpenCloudGaming/OpenStroid
+
+The OpenNOW SDK is used at 683eaa0ecfb60738388def065944c7284154be5c,
+licensed under MIT. Its license must accompany the final package.
+https://github.com/OpenCloudGaming/opennow
+
+The package builder must retain dependency notices for webrtc/rtc and
+h264-reader, which are available under MIT OR Apache-2.0, and all other
+distributed dependencies. Test fixture provenance is in tests/fixtures/README.md.

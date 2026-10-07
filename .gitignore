@@ -1,5 +1,7 @@
-/target/
+**/target/
 /dist/
+__pycache__/
+*.pyc
 *.opennow-plugin
 .env
 .env.*

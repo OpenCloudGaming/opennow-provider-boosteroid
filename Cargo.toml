@@ -1,0 +1,19 @@
+[workspace]
+members = ["crates/*"]
+exclude = ["vendor/h264-reader"]
+resolver = "3"
+
+[patch.crates-io]
+h264-reader = { path = "vendor/h264-reader" }
+crc32c = { git = "https://github.com/zowens/crc32c", rev = "66c7c4905a6cf624cb1e1cbc21e7dd3cbce6faa1" }
+
+[profile.release]
+lto = "thin"
+strip = true
+codegen-units = 1
+
+[profile.dev]
+debug = 0
+
+[profile.test]
+debug = 0

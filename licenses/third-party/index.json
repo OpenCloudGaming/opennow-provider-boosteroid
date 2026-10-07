@@ -1,0 +1,499 @@
+{
+  "schema": 1,
+  "paths_relative_to": "this directory (licenses/third-party/)",
+  "notes": [
+    "packages maps exact 'name@version' to the verbatim files to emit; files[].path is relative to this directory, files[].sha256 is of the stored bytes.",
+    "status: upstream-at-published-commit = text taken from the commit named in the crate's .cargo_vcs_info.json; upstream-later-commit = upstream text exists only at a later commit; declared-only = no upstream text exists (see note).",
+    "distribution_notices holds notices for the Rust standard library, which is not a Cargo package.",
+    "This is a collection of notices as published upstream, not a legal clearance."
+  ],
+  "packages": {
+    "asn1-rs-impl@0.2.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/rusticata/asn1-rs",
+      "commit": "a20e5f7319c896737ad0f2557037817b91ad854f",
+      "path_in_vcs": "impl",
+      "cargo_lock_checksum": "7b18050c2cd6fe86c3a76584ef5e0baf286d038cda203eb6223df2cc413565f7",
+      "files": [
+        {
+          "path": "asn1-rs/a20e5f7319c8/LICENSE-MIT",
+          "sha256": "a5c61b93b6ee1d104af9920cf020ff3c7efe818e31fe562c72261847a728f513",
+          "source_commit": "a20e5f7319c896737ad0f2557037817b91ad854f",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/rusticata/asn1-rs/blob/a20e5f7319c896737ad0f2557037817b91ad854f/LICENSE-MIT"
+        },
+        {
+          "path": "asn1-rs/a20e5f7319c8/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "a20e5f7319c896737ad0f2557037817b91ad854f",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/rusticata/asn1-rs/blob/a20e5f7319c896737ad0f2557037817b91ad854f/LICENSE-APACHE"
+        }
+      ],
+      "note": "License files live at the repository root; the impl/ crate directory has none. Root files cover the whole repository at this commit."
+    },
+    "mp4ra-rust@0.6.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/dholroyd/mp4ra-rust",
+      "commit": "3fc2d3a508b7867f3aa981ca902b24260fb0223f",
+      "path_in_vcs": "mp4ra-rust",
+      "cargo_lock_checksum": "50e73e22289737589d1575517eefead53c7bbd7e11546437f97b3859694c1a08",
+      "files": [
+        {
+          "path": "mp4ra-rust/3fc2d3a508b7/LICENSE-MIT",
+          "sha256": "dea4b0f988296a5d89651e94c7e367a8815960498fb5678de839061702b056e6",
+          "source_commit": "3fc2d3a508b7867f3aa981ca902b24260fb0223f",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/dholroyd/mp4ra-rust/blob/3fc2d3a508b7867f3aa981ca902b24260fb0223f/LICENSE-MIT"
+        },
+        {
+          "path": "mp4ra-rust/3fc2d3a508b7/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "3fc2d3a508b7867f3aa981ca902b24260fb0223f",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/dholroyd/mp4ra-rust/blob/3fc2d3a508b7867f3aa981ca902b24260fb0223f/LICENSE-APACHE"
+        }
+      ],
+      "note": "License files live at the repository root; the mp4ra-rust/ crate directory has none."
+    },
+    "rtc-crypto@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-crypto",
+      "cargo_lock_checksum": "dc0aa6730d18cbc67b1de0430019f8e4545fd0fddba3c07f38dbbc675dc48829",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-datachannel@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-datachannel",
+      "cargo_lock_checksum": "6c670c43316afb11bf0b40070717915ff4368666350bad59042c0a89a2a1fd33",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-dtls@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-dtls",
+      "cargo_lock_checksum": "b05fe638f13e60cf3ef8e1608d0e8d36cfb740cce4514e8d6662887eb6c17ff9",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-ice@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-ice",
+      "cargo_lock_checksum": "4f437cc58721fdb3f0a2ab8b90660d3c19ea2817bc4e2117b2d80f3f6cfba5f3",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-interceptor@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-interceptor",
+      "cargo_lock_checksum": "b89c8484098eb9f7848152780df3450d704f371e4e930fda443a50b4434da3a3",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-mdns@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-mdns",
+      "cargo_lock_checksum": "dac42fb41bf3c4833d71314ae1f19145d7e81a5c913e648c9954cab9cca36046",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-media@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-media",
+      "cargo_lock_checksum": "79245110e26b3624b1bfd89de8fecc4f94ddb8047dc143f3278ea32e893d05a1",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-rtcp@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-rtcp",
+      "cargo_lock_checksum": "450cc3da3f26eba6c6eb7fc44a16370b1397ebd4cc48fa20328cf33e4b1db647",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-rtp@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-rtp",
+      "cargo_lock_checksum": "ac6a382bc412e79e1a047dc916c435098d9b8d86d6fb76b845948e628df53cfd",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-sctp@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-sctp",
+      "cargo_lock_checksum": "161e3eb55695d4ce7492a690b6a27dc43bfeee43fd5d4af0423de1ace49456c1",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-sdp@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-sdp",
+      "cargo_lock_checksum": "a59de63dab713911debb05fb5931da889692e50333462e965b783f41f5f90337",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-shared@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-shared",
+      "cargo_lock_checksum": "24d32c3e91a0eec814e093f415f5848f5c3c497d8b1140965bf26f81101691ee",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-srtp@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-srtp",
+      "cargo_lock_checksum": "2219abff4963802959a9fa8cff370f47ebbcdf92e783e5d8446b440414a8c76e",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-stun@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-stun",
+      "cargo_lock_checksum": "2f05cfc42b678dc8a2161ec42c5f367af70a129c5e3a2d8ea54227bb220641ed",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    },
+    "rtc-turn@0.21.0": {
+      "license": "MIT/Apache-2.0",
+      "status": "upstream-at-published-commit",
+      "license_at_published_commit": true,
+      "repository": "https://github.com/webrtc-rs/rtc",
+      "commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+      "path_in_vcs": "rtc-turn",
+      "cargo_lock_checksum": "7b78c4f1b2af74058fb0210537cc3ff7f84e6babbc3baf5f392a41e93f103a73",
+      "files": [
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-MIT",
+          "sha256": "56cc6c08157f4faf70d351b3a7ceac143399d5359a78c180e06dcd0390784f4d",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-MIT"
+        },
+        {
+          "path": "webrtc-rs-rtc/c8321cab79ae/LICENSE-APACHE",
+          "sha256": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "source_commit": "c8321cab79ae745aad973d62034ec84d301e893c",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/webrtc-rs/rtc/blob/c8321cab79ae745aad973d62034ec84d301e893c/LICENSE-APACHE"
+        }
+      ],
+      "note": "Shared files: one workspace commit (all fifteen rtc-* 0.21.0 crates publish from c8321ca) with a single pair of root license files."
+    }
+  },
+  "distribution_notices": {
+    "rust-std@1.99.0": {
+      "license": "Apache-2.0 OR MIT, with third-party exceptions listed in COPYRIGHT-library.html",
+      "status": "toolchain-distribution",
+      "repository": "https://github.com/rust-lang/rust",
+      "commit": "b940084d7eb6a299eb4bfeb8e34901bc051e7ac4",
+      "files": [
+        {
+          "path": "rust-std/1.99.0/COPYRIGHT-library.html",
+          "sha256": "5647be074c8edf7339fd863055923a8fc80bc5610a8d4661ec3b767b9d392c27",
+          "source_commit": "b940084d7eb6a299eb4bfeb8e34901bc051e7ac4",
+          "source_path": "rustc-1.99.0-x86_64-unknown-linux-gnu/rustc/share/doc/rust/COPYRIGHT-library.html",
+          "url": "https://static.rust-lang.org/dist/2026-10-01/rustc-1.99.0-x86_64-unknown-linux-gnu.tar.xz",
+          "tarball_sha256": "77171ba2a0345fdf2abc4fedda55d6de078dae7a68527c28be8c77dcc9604bd5",
+          "tarball_sha256s": {
+            "x86_64-unknown-linux-gnu": "77171ba2a0345fdf2abc4fedda55d6de078dae7a68527c28be8c77dcc9604bd5",
+            "x86_64-pc-windows-msvc": "20fed82e629c1ed145f9e9bdee9aad65e790d4237a49bcfc61221eda69e35b14",
+            "aarch64-apple-darwin": "334a66714ca316d71bbe5efe44f71762d0b276cea73be2987374693a837f7450"
+          }
+        },
+        {
+          "path": "rust-std/1.99.0/LICENSE-MIT",
+          "sha256": "b71bd43a069ca0641a9ecfe585ca7b3c53b5cc1608f8b68321168698e28b5ea1",
+          "source_commit": "b940084d7eb6a299eb4bfeb8e34901bc051e7ac4",
+          "source_path": "LICENSE-MIT",
+          "url": "https://github.com/rust-lang/rust/blob/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/LICENSE-MIT"
+        },
+        {
+          "path": "rust-std/1.99.0/LICENSE-APACHE",
+          "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "source_commit": "b940084d7eb6a299eb4bfeb8e34901bc051e7ac4",
+          "source_path": "LICENSE-APACHE",
+          "url": "https://github.com/rust-lang/rust/blob/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/LICENSE-APACHE"
+        },
+        {
+          "path": "rust-std/1.99.0/COPYRIGHT",
+          "sha256": "172020dbfd5b53a226dfde77616190a48dcff519b0bc0e6deb91a8450782c4af",
+          "source_commit": "b940084d7eb6a299eb4bfeb8e34901bc051e7ac4",
+          "source_path": "COPYRIGHT",
+          "url": "https://github.com/rust-lang/rust/blob/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/COPYRIGHT"
+        }
+      ],
+      "note": "Compiled Rust artifacts link the standard library statically, so distributing them redistributes std and its listed out-of-tree dependencies. COPYRIGHT-library.html is the notice generated at build time and shipped in the toolchain used for parent builds (rustc 1.99.0 (b940084d7 2026-09-28), cargo +1.99.0, x86_64-unknown-linux-gnu host). It is byte-identical (sha256 5647be07...) in the official rustc 1.99.0 tarballs for x86_64-unknown-linux-gnu, x86_64-pc-windows-msvc and aarch64-apple-darwin; each tarball's sha256 matches the channel manifest dated 2026-10-01 (hashes in tarball_sha256s). It differs from the 1.97.1 file, so it must not be reused across releases. It embeds the license texts it needs. LICENSE-MIT, LICENSE-APACHE and COPYRIGHT are the rust-lang/rust files at the release commit (byte-identical to those at 1.97.1's commit). COPYRIGHT-library.html is HTML, about 1.5 MB (over the 1 MiB per-file bound in tools/third_party_notices.py), stored verbatim: raise the bound for this one file or the script will reject it."
+    }
+  }
+}

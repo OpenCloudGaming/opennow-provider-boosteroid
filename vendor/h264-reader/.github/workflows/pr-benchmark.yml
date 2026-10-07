@@ -1,0 +1,42 @@
+name: Run and Cache Benchmarks
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  benchmark:
+    name: Run Benchmarks
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Install toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1.17.0
+
+      - uses: cargo-bins/cargo-binstall@main
+
+      - run: sudo apt update && sudo apt install valgrind
+
+      - name: Install iai-callgrind-runner
+        run: |
+          version=$(cargo metadata --format-version=1 |\
+            jq '.packages[] | select(.name == "iai-callgrind").version' |\
+            tr -d '"'
+          )
+          cargo binstall --no-confirm iai-callgrind-runner --version $version --root $PWD/iai/
+
+      - run: |
+          IAI_CALLGRIND_COLOR=never IAI_CALLGRIND_RUNNER=$PWD/iai/bin/iai-callgrind-runner cargo bench --bench ci_bench > benchmark_results.txt
+      - name: Upload Benchmark Results
+        uses: actions/upload-artifact@v7
+        with:
+          name: benchmark_results.txt
+          path: ./benchmark_results.txt
+      - name: Upload GitHub Pull Request Event
+        uses: actions/upload-artifact@v7
+        with:
+          name: event.json
+          path: ${{ github.event_path }}
