@@ -389,16 +389,18 @@ fn parse_credentials(value: Value, old: Option<&Credentials>) -> Result<Credenti
         Some(value) => secret(value)?,
         None => old.map(|v| v.refresh.clone()).ok_or_else(Error::schema)?,
     };
-    let auth_data = value.get("user_data").and_then(|v| {
-        [
+    let auth_data = match value.get("user_data") {
+        Some(data @ Value::String(_)) => Some(data),
+        Some(Value::Object(data)) => [
             "boosteroid_auth",
             "boosteroidAuth",
             "authorization_data",
             "authorizationData",
         ]
         .iter()
-        .find_map(|k| v.get(k))
-    });
+        .find_map(|key| data.get(*key)),
+        _ => None,
+    };
     let authorization_data = auth_data
         .map(secret)
         .transpose()?
@@ -561,6 +563,130 @@ mod tests {
         assert!(parse_application(json!({"id":1,"title":"invented alias"})).is_err());
         assert!(seat_id(&json!({"nested":{"sessionId":"123"}})).is_err());
         assert!(parse_credentials(json!({"access_token":"token"}), None).is_err());
+    }
+
+    #[test]
+    fn credentials_preserve_direct_and_nested_authorization_data() {
+        for user_data in [
+            json!("fixture-authorization-data"),
+            json!({"boosteroid_auth":"fixture-authorization-data"}),
+            json!({"boosteroidAuth":"fixture-authorization-data"}),
+            json!({"authorization_data":"fixture-authorization-data"}),
+            json!({"authorizationData":"fixture-authorization-data"}),
+        ] {
+            let credentials = parse_credentials(
+                json!({"access_token":"fixture-access","refresh_token":"fixture-refresh","user_data":user_data}),
+                None,
+            )
+            .unwrap();
+            assert_eq!(
+                credentials
+                    .authorization_data
+                    .as_ref()
+                    .map(SecretString::expose_secret),
+                Some("fixture-authorization-data")
+            );
+        }
+    }
+
+    #[test]
+    fn direct_authorization_data_is_bounded_and_rotates_with_refresh() {
+        let old = Credentials {
+            access: SecretString::new("fixture-access").unwrap(),
+            refresh: SecretString::new("fixture-refresh").unwrap(),
+            authorization_data: Some(SecretString::new("fixture-old-data").unwrap()),
+        };
+        let rotated = parse_credentials(
+            json!({"access_token":"fixture-new-access","user_data":"fixture-new-data"}),
+            Some(&old),
+        )
+        .unwrap();
+        assert_eq!(rotated.refresh.expose_secret(), "fixture-refresh");
+        assert_eq!(
+            rotated.authorization_data.unwrap().expose_secret(),
+            "fixture-new-data"
+        );
+        let retained =
+            parse_credentials(json!({"access_token":"fixture-new-access"}), Some(&old)).unwrap();
+        assert_eq!(
+            retained.authorization_data.unwrap().expose_secret(),
+            "fixture-old-data"
+        );
+        for data in [String::new(), "x".repeat(16_385)] {
+            assert!(
+                parse_credentials(
+                    json!({"access_token":"fixture-access","user_data":data}),
+                    Some(&old)
+                )
+                .is_err()
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn qr_approval_forwards_direct_authorization_data_to_identity_request() {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move {
+            for step in 0..2 {
+                let (mut socket, _) = listener.accept().await.unwrap();
+                let mut request = Vec::new();
+                while !request.windows(4).any(|part| part == b"\r\n\r\n") {
+                    let mut chunk = [0; 1024];
+                    let count = socket.read(&mut chunk).await.unwrap();
+                    assert!(count > 0 && request.len() + count <= 8192);
+                    request.extend_from_slice(&chunk[..count]);
+                }
+                let header_end = request
+                    .windows(4)
+                    .position(|part| part == b"\r\n\r\n")
+                    .unwrap()
+                    + 4;
+                let body_length = String::from_utf8_lossy(&request[..header_end])
+                    .lines()
+                    .find_map(|line| {
+                        line.to_ascii_lowercase()
+                            .strip_prefix("content-length:")
+                            .map(|length| length.trim().parse::<usize>().unwrap())
+                    })
+                    .unwrap_or(0);
+                assert!(header_end + body_length <= 8192);
+                while request.len() < header_end + body_length {
+                    let mut chunk = [0; 1024];
+                    let count = socket.read(&mut chunk).await.unwrap();
+                    assert!(count > 0 && request.len() + count <= 8192);
+                    request.extend_from_slice(&chunk[..count]);
+                }
+                let request = String::from_utf8(request).unwrap().to_ascii_lowercase();
+                let (status, body) = if step == 0 {
+                    assert!(request.starts_with("post /api/v1/auth/login/qr-code/sync "));
+                    (
+                        "200 OK",
+                        json!({"data":{"access_token":"fixture-access","refresh_token":"fixture-refresh","user_data":"fixture-authorization-data"}}),
+                    )
+                } else {
+                    assert!(request.starts_with("get /api/v1/user "));
+                    assert!(request.contains("authorization: bearer fixture-access\r\n"));
+                    if request.contains("authorization-data: fixture-authorization-data\r\n") {
+                        ("200 OK", json!({"data":{"id":123,"name":"Fixture user"}}))
+                    } else {
+                        ("401 Unauthorized", json!({}))
+                    }
+                };
+                let body = body.to_string();
+                socket.write_all(format!("HTTP/1.1 {status}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len()).as_bytes()).await.unwrap();
+            }
+        });
+        let client =
+            BoosteroidClient::fixture(Url::parse(&format!("http://{addr}")).unwrap()).unwrap();
+        let credentials = client
+            .poll_auth("fixture-approval-code")
+            .await
+            .unwrap()
+            .unwrap();
+        let user = client.user(&credentials).await;
+        server.await.unwrap();
+        assert_eq!(user.unwrap().id, "123");
     }
 
     #[tokio::test]
