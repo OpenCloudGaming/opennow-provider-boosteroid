@@ -1,0 +1,11 @@
+OpenNOW Boosteroid provider
+
+This project adapts Boosteroid service-protocol knowledge and implementation
+from OpenStroid, https://github.com/OpenCloudGaming/OpenStroid, at commit
+c27c4f54974bf2d0a58c625c3f219dcb05bd0fd2, licensed under Apache-2.0.
+The native Rust port replaces OpenStroid's browser/Electron runtime and player
+with OpenNOW provider and encoded-media worker interfaces. It is not the
+official Boosteroid client and contains no proprietary client binaries.
+
+The OpenNOW provider SDK is distributed under the MIT license. Its notices and
+the licenses of the final dependency set must accompany distributed packages.
