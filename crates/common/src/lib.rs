@@ -25,7 +25,7 @@ use subtle::ConstantTimeEq;
 use zeroize::Zeroizing;
 
 pub const PLUGIN_ID: &str = "org.opennow.boosteroid";
-pub const VERSION: &str = "0.1.1";
+pub const VERSION: &str = "0.1.2";
 pub const MAX_CONTROL_STATE_BYTES: usize = 1024 * 1024;
 pub const MAX_GRANT_BYTES: usize = 64 * 1024;
 const MAX_AUTHORIZATION_BYTES: usize = 32 * 1024;

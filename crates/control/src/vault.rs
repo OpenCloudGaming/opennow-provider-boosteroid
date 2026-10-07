@@ -4,6 +4,9 @@ use std::collections::HashMap;
 use std::sync::Mutex;
 use zeroize::Zeroizing;
 
+#[cfg(any(windows, test))]
+mod windows;
+
 pub trait Vault: Send + Sync {
     fn put(&self, key: &str, value: &str) -> Result<()>;
     fn get(&self, key: &str) -> Result<Zeroizing<String>>;
@@ -12,6 +15,7 @@ pub trait Vault: Send + Sync {
 
 pub struct CredentialVault;
 
+#[cfg(not(windows))]
 impl Vault for CredentialVault {
     fn put(&self, key: &str, value: &str) -> Result<()> {
         keyring::Entry::new("org.opennow.boosteroid", key)
@@ -31,6 +35,19 @@ impl Vault for CredentialVault {
             Ok(()) | Err(keyring::Error::NoEntry) => Ok(()),
             Err(_) => Err(Error::new(Code::ServiceUnavailable)),
         }
+    }
+}
+
+#[cfg(windows)]
+impl Vault for CredentialVault {
+    fn put(&self, key: &str, value: &str) -> Result<()> {
+        windows::CredentialStore::new(windows::OsSecrets).put(key, value)
+    }
+    fn get(&self, key: &str) -> Result<Zeroizing<String>> {
+        windows::CredentialStore::new(windows::OsSecrets).get(key)
+    }
+    fn remove(&self, key: &str) -> Result<()> {
+        windows::CredentialStore::new(windows::OsSecrets).remove(key)
     }
 }
 

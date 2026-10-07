@@ -4,8 +4,9 @@ A standalone native provider plugin targeting the provider-v2 SDK in
 [OpenNOW PR #1129](https://github.com/OpenCloudGaming/OpenNOW/pull/1129).
 
 This is an experimental implementation, not a verified live-playback release.
-It builds native `.opennow-plugin` packages. Live Boosteroid authentication,
-gameplay, and remote-session cleanup still require account-based verification.
+It builds native `.opennow-plugin` packages. Live Windows authentication, library
+loading, and login persistence across provider restarts have been verified.
+Gameplay and remote-session cleanup still require account-based verification.
 
 The plugin contains a control executable for authentication, catalogs, and
 remote sessions, plus a headless media worker for Boosteroid's streaming transport.

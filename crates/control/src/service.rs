@@ -191,19 +191,45 @@ impl BoosteroidClient {
         page: u32,
         limit: u16,
     ) -> Result<Vec<Application>> {
-        let data = self
-            .checked(
-                Method::GET,
-                &format!("/api/v1/boostore/applications/installed?page={page}&paginate={limit}"),
-                Some(auth),
-                None,
-            )
-            .await?;
-        let values = data.as_array().ok_or_else(Error::schema)?;
-        if values.len() > usize::from(limit) {
-            return Err(Error::schema());
+        const UPSTREAM_PAGE_SIZE: u32 = 50;
+        if !(1..=100).contains(&limit) {
+            return Err(Error::invalid());
         }
-        values.iter().cloned().map(parse_application).collect()
+        let offset = page
+            .checked_sub(1)
+            .and_then(|page| page.checked_mul(u32::from(limit)))
+            .ok_or_else(Error::invalid)?;
+        let mut upstream_page = offset / UPSTREAM_PAGE_SIZE + 1;
+        let mut skip = (offset % UPSTREAM_PAGE_SIZE) as usize;
+        let mut applications = Vec::with_capacity(usize::from(limit));
+        loop {
+            let data = self
+                .checked(
+                    Method::GET,
+                    &format!("/api/v1/boostore/applications/installed?page={upstream_page}&paginate={UPSTREAM_PAGE_SIZE}"),
+                    Some(auth),
+                    None,
+                )
+                .await?;
+            let values = data.as_array().ok_or_else(Error::schema)?;
+            if values.len() > UPSTREAM_PAGE_SIZE as usize {
+                return Err(Error::schema());
+            }
+            for value in values
+                .iter()
+                .skip(skip)
+                .take(usize::from(limit) - applications.len())
+            {
+                applications.push(parse_application(value.clone())?);
+            }
+            if values.len() < UPSTREAM_PAGE_SIZE as usize
+                || applications.len() == usize::from(limit)
+            {
+                return Ok(applications);
+            }
+            upstream_page += 1;
+            skip = 0;
+        }
     }
 
     pub async fn application(&self, auth: &Credentials, id: u64) -> Result<Application> {
@@ -479,7 +505,13 @@ fn parse_application(value: Value) -> Result<Application> {
 }
 
 fn public_url(value: &str) -> Result<String> {
-    let url = Url::parse(value).map_err(|_| Error::schema())?;
+    let mut url = Url::parse(value).map_err(|_| Error::schema())?;
+    if url
+        .host_str()
+        .is_some_and(|host| host == "boosteroid.com" || host.ends_with(".boosteroid.com"))
+    {
+        url.set_query(None);
+    }
     if url.scheme() != "https"
         || !url.username().is_empty()
         || url.password().is_some()
@@ -544,6 +576,28 @@ pub fn terminal_reason(
 mod tests {
     use super::*;
     use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+    #[test]
+    fn library_artwork_uses_public_boosteroid_original_without_transform_query() {
+        let app = parse_application(json!({
+            "id": 12,
+            "name": "Fixture game",
+            "icon": "https://cdn.boosteroid.com/game.png?width=600&height=900&quality=80&fit=cover&dpr=2"
+        })).unwrap();
+        assert_eq!(
+            app.artwork.as_deref(),
+            Some("https://cdn.boosteroid.com/game.png")
+        );
+        for url in [
+            "https://unrelated.example/game.png?token=private",
+            "https://boosteroid.com.unrelated.example/game.png?width=600",
+            "https://user:password@cdn.boosteroid.com/game.png?width=600",
+            "http://cdn.boosteroid.com/game.png?width=600",
+            "https://cdn.boosteroid.com/game.png#private",
+        ] {
+            assert!(public_url(url).is_err());
+        }
+    }
 
     #[test]
     fn identity_never_uses_email_or_jwt_fallback() {
@@ -687,6 +741,60 @@ mod tests {
         let user = client.user(&credentials).await;
         server.await.unwrap();
         assert_eq!(user.unwrap().id, "123");
+    }
+
+    #[tokio::test]
+    async fn library_adapts_host_pages_to_supported_upstream_page_size() {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move {
+            for expected_page in [1, 1, 2, 2, 3] {
+                let (mut socket, _) = listener.accept().await.unwrap();
+                let mut bytes = Vec::new();
+                while !bytes.windows(4).any(|part| part == b"\r\n\r\n") {
+                    let mut chunk = [0; 1024];
+                    let n = socket.read(&mut chunk).await.unwrap();
+                    assert!(n > 0 && bytes.len() + n <= 8192);
+                    bytes.extend_from_slice(&chunk[..n]);
+                }
+                let request = String::from_utf8(bytes).unwrap();
+                let supported = request.starts_with(&format!(
+                    "GET /api/v1/boostore/applications/installed?page={expected_page}&paginate=50 "
+                ));
+                let (status, body) = if supported {
+                    let items: Vec<_> = (((expected_page - 1) * 50 + 1)
+                        ..=(expected_page * 50).min(105))
+                        .map(|id| json!({"id":id,"name":format!("Game {id}")}))
+                        .collect();
+                    ("200 OK", json!({"data":items}))
+                } else {
+                    (
+                        "422 Unprocessable Entity",
+                        json!({"paginate":["The selected paginate is invalid."]}),
+                    )
+                };
+                let body = body.to_string();
+                socket.write_all(format!("HTTP/1.1 {status}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}", body.len()).as_bytes()).await.unwrap();
+                if !supported {
+                    return;
+                }
+            }
+        });
+        let client =
+            BoosteroidClient::fixture(Url::parse(&format!("http://{addr}")).unwrap()).unwrap();
+        let auth = Credentials {
+            access: SecretString::new("fixture-access").unwrap(),
+            refresh: SecretString::new("fixture-refresh").unwrap(),
+            authorization_data: None,
+        };
+        let mut ids = Vec::new();
+        for page in 1..=3 {
+            let apps = client.library(&auth, page, 40).await.unwrap();
+            assert_eq!(apps.len(), if page < 3 { 40 } else { 25 });
+            ids.extend(apps.into_iter().map(|app| app.id));
+        }
+        assert_eq!(ids, (1..=105).collect::<Vec<_>>());
+        server.await.unwrap();
     }
 
     #[tokio::test]
