@@ -1,0 +1,39 @@
+[package]
+name = "h264-reader"
+version = "0.9.0"
+authors = ["David Holroyd <dave@badgers-in-foil.co.uk>"]
+license = "MIT/Apache-2.0"
+description = "Reader for H264 bitstream syntax"
+categories = [ "multimedia::video" ]
+keywords = [ "H-264" ]
+readme = "README.md"
+repository = "https://github.com/dholroyd/h264-reader"
+edition = "2018"
+exclude = ["/*.h264"]
+rust-version = "1.83"
+
+[dependencies]
+bitstream-io = "4.10"
+hex-slice = "0.1.4"
+memchr = "2.8.0"
+rfc6381-codec = "0.3"
+log = "0.4"
+
+[dev-dependencies]
+hex-literal = "1.1.0"
+criterion = "0.7"
+test-case = "3.0.0"
+iai-callgrind = "0.16.1"
+
+[[bench]]
+name = "bench"
+harness = false
+
+[[bench]]
+name = "ci_bench"
+harness = false
+
+
+[profile.bench]
+# for profiling,
+debug = true

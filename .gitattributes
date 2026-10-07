@@ -1,0 +1,2 @@
+licenses/third-party/** -text -whitespace
+vendor/** -text -whitespace
