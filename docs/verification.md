@@ -3,7 +3,27 @@
 The native package has offline and host-integration evidence. It does not yet
 have evidence of live Boosteroid authentication or gameplay.
 
-## Checked on October 7, 2026
+## Version 0.1.1 authentication correction
+
+QR login can return the opaque authorization data directly in `user_data`.
+Version 0.1.1 preserves that string and sends it as `Authorization-Data` during
+the authenticated account lookup. The supported object forms remain valid.
+Refresh replaces or retains the value as appropriate, with the same size bounds.
+
+A loopback HTTP regression returns 401 when this header is absent. It failed
+with `AuthRequired` before the fix and passes afterward. The full suite passes
+68 Rust tests on Linux and 71 on Windows, plus the five Python tests, formatting,
+strict Clippy, and the real Windows core installation/startup/uninstall check.
+Live browser re-approval still needs confirmation.
+
+The Windows package is `boosteroid-windows-x86_64-0.1.1.opennow-plugin`,
+8,250,068 bytes, SHA-256:
+
+```text
+51f68812220d6e06a81b0cd6c1b358fd66d4ef905110d3fd1e3e5d30a6bb15f3
+```
+
+## Version 0.1.0 baseline, October 7, 2026
 
 The SDK and host core use OpenNOW commit
 `683eaa0ecfb60738388def065944c7284154be5c`. Builds use Rust 1.99.0.
